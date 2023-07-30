@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat With Love</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <style>
+        .label{
+            font-size: 40px;
+        }
+        #result-container{
+            width: 50%;
+            padding: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <form id ="number-form" >
+        <label class="label" for="number">Enter a number of your choice :</label>
+        <input type="number" id="number" name="number" required>
+        <button type="submit">Check</button>
+    </form>
+    <h1>Lets see what you will get</h1>
+    <div id="result-container"></div>
+    <script>
+        // JavaScript code for handling the form submission using AJAX
+        $(document).ready(function() {
+            $("#number-form").submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                var number = $("#number").val(); 
+                console.log(number);// Get the number entered by the user
+                
+                // Send a POST request to the Flask backend
+                $.post("/", {number: number}, function(data) {
+                    // Update the result container with the response from Flask
+                    $("#result-container").html(data);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
